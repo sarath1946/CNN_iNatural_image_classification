@@ -11,7 +11,7 @@ class INaturalistDataset(Dataset):
             split (str): 'train' or 'validation'
             transform (callable): torchvision transforms
         """
-        assert split in ["train", "validation"], \
+        assert split in ["train", "val"], \
             "split must be 'train' or 'validation'"
 
         self.root_dir = root_dir

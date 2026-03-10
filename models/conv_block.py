@@ -6,7 +6,7 @@ class ConvBlock(nn.Module):
     def __init__(self, in_channels, out_channels, kernel_size,
                  use_bn=False, activation="relu",pool_kernal=2,dropout=0.0):
         super().__init__()
-        self.conv = nn.conv2d(in_channels=in_channels,out_channels=out_channels,kernal=kernal_size,padding=kernal_size//2)
+        self.conv = nn.conv2d(in_channels=in_channels,out_channels=out_channels,kernal=kernel_size,padding=kernel_size//2)
         self.use_bn=use_bn
         if use_bn:
             self.bn = nn.BatchNorm2D(out_channels)
