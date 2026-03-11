@@ -6,12 +6,12 @@ class ConvBlock(nn.Module):
     def __init__(self, in_channels, out_channels, kernel_size,
                  use_bn=False, activation="relu",pool_kernal=2,dropout=0.0):
         super().__init__()
-        self.conv = nn.conv2d(in_channels=in_channels,out_channels=out_channels,kernal=kernel_size,padding=kernel_size//2)
+        self.conv = nn.Conv2d(in_channels=in_channels,out_channels=out_channels,kernel_size=kernel_size,padding=kernel_size//2)
         self.use_bn=use_bn
         if use_bn:
-            self.bn = nn.BatchNorm2D(out_channels)
+            self.bn = nn.BatchNorm2d(out_channels)
         self.activation_name = activation.lower()
-        self.pool = nn.MaxPool2d(kernal_size=pool_kernal)
+        self.pool = nn.MaxPool2d(kernel_size=pool_kernal)
         self.use_dropout = dropout > 0.0
         if self.use_dropout:
             self.dropout = nn.Dropout2d(dropout)
@@ -30,7 +30,10 @@ class ConvBlock(nn.Module):
             x = F.mish(x)
         else:
             raise ValueError(f"Unsupported activation: {self.activation_name}")
-        self.pool(x)
+        print(x.shape)
+        x = self.pool(x)
+        print("after pooling")
+        print(x.shape)
         if self.use_dropout:
             x=self.dropout(x)
         return x
